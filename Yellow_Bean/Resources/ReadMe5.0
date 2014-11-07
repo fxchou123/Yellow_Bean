@@ -1,0 +1,69 @@
+这次修改主要是pollish游戏和完善游戏机制:
+1)Player增加了自动恢复到原来的位置的机制
+2)修复了一些碰撞bug，注意现在那些需要踩顶部才能触发的机制，如JumpBrick，是一定要踩在顶部才会触发，不能直接触碰他们来触发。
+3)按照Scott的意思，在空中跳起来了，如果按下下蹲，会迅速下落，具体测试即可知。
+4)修复了Magnet的一个Bug
+5)修复了一堆碰撞bug，以及可能发生的bug
+6)修复了player跳跃bug
+
+7)完成了Score.
+7.1 Player的distance和Score的系数，在GameStatistics中的ScoreDistanceFactor修改，这个系数乘以距离数回家到游戏最后的总分数中。
+7.2 Bee和Spike均增加了一个参数用于表示踩死他们得到的分数。
+
+写法如下：
+Bee = {
+  ScoreValue(分数);
+  ...
+};
+
+Spike( ... , 分数);
+
+7.3 Score ，你懂得。
+
+8)增加一些视觉特效
+
+9)如何只载入第二关。
+
+现在的关卡是通过其他文件载入的，在game_test_2中的GameScene节点下面写入：
+  [OffsetX:-25000]
+  [OffsetY:0]
+  Level = {
+    Name("GameLevel2");
+    LevelFile("GameLevel2");
+  };
+  
+表示，我要载入GameLevel2，他的问价是GameLevel2（你可以找到此文件），然后这个关卡整体向x轴方向偏移-25000像素，因为
+GameLevel2的第一个砖块是25XXX像素.然后你就直接玩第二关了。如果要第一，第二关一起玩：
+Level = {
+  Name("GameLevel1");
+  LevelFile("GameLevel1");
+};
+
+Level = {
+  Name("GameLevel2");
+  LevelFile(GameLevel2");
+};
+
+如果要写第三关，以此类推。
+
+10) GoldLevelUp加入了参数表示多长距离的Gold会升级 :
+        [StartX:39400]
+        [StartY:400]
+        GoldLevelUp = {
+          ItemInfo(40.0,40.0);
+          Sprite("gold_level_up.png");
+          Effect("gold_level_up.plist");
+          WayPoint = {
+            MoveWithPhysicalWorld(0.0,0.0);
+          };
+          Range(2000);
+        };
+        
+就是Range参数!
+
+
+
+
+
+
+

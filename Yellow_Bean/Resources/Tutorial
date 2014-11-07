@@ -1,0 +1,57 @@
+Scene= {
+  [Gravity:1000.0]
+  [MoveSpeedX:300.0]
+  [MoveSpeedY:0.0]
+  PhysicalWorld = { };
+  
+  [Z:0]
+  Environment = {
+    Background(10,"background1.png","background2.png");
+    Weather = {
+      Maple("leaf.plist",30);
+    };
+  };
+  
+  SoundManager = {
+    GameOverMusic("game_over.mp3");
+    BackgroundMusic("bgm.mp3");
+    MissileFire("missile.wav");
+    MissileExplosion("missile_explosion.wav");
+    MissileAlert("missile_alarm.wav");
+    PlayerJump("jump.wav");
+    PlayerShrink("shrink.wav");
+    Bomb("bomb.wav");
+    JumpBrick("jump_brick.wav");
+    BreakableBrickExplosion("breakable_brick_explosion.wav");
+    PickUp("pickup.wav");
+    Gold("gold.mp3");
+    Score("score.mp3");
+    HiddenWay("pickup.wav");
+  };
+
+  [Z:100]
+  GameStatistics = {
+    RenderInfo("Chalkduster",20.0,"Purple",0,760,0,740);
+    ScoreDistanceFactor(0.11);
+  };
+
+  [Z:10]
+  Player = {
+    [Mass:1.0]
+    [Elasticy:0.0]
+    PlayerInfo(300,315,50,70,0.3,1,450,50,20,200);
+    PlayerRun("player_run.png",8,8,75,75);
+    PlayerShrink("player_shrink_up.png",4,256,75,75,
+                 "player_shrink_down.png",4,256,75,75);
+    PlayerJump("player_jump.png",5,5,75,75);
+    PositionRecovery(1.0,1);
+  };
+  
+  Level = {
+    Name("Tutorial_BasicControl");
+    LevelFile("Tutorial_BasicControl");
+    RestartOffset(0,0);
+  };
+    
+
+};

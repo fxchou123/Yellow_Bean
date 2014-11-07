@@ -1,0 +1,33 @@
+制作tutorial。
+
+现在的游戏，根据老师的要求，制作了checkpoint。玩家如果玩过了第一关，在第二关死掉了，他会重新从第二关开始玩，如果他点击retry。
+tutorial的原理如此，tutorial可以制作成N个小关，如果某一关没有过，由于他是个独立的小关，所以玩家不会退到第一个tutorial。
+
+我已经为你创建了5个空文件，每个都设置好了编码，和你创建关卡一样，在Map和Actor中加入元素。
+然后修改Tutorial文件，在里面加入
+
+Level = {
+  LevelName("YourTutorialLevelName");
+  LevelFile("YourTutorialLevelFile");
+  RestartOffset(0,0);
+};
+
+每个Tutorial的level,StartX,StartY都从0，0开始。
+
+如何播放文字：
+
+在Actor中加入:
+
+    [StartX:3600]
+    [StartY:0]
+    Hint = {
+      Message("Please press the right hand side screen to shrink!");
+      Effect(500,500,"Red",20.0,"Chalkduster",1.0,1.0,1.0);
+    };
+    
+    
+Message是你要现实的消息，Effect，第一二个参数是在屏幕中的位置，第三个是颜色，基本的颜色都支持，black，red，yellow 什么的；第四个是字的大小；第五个是字体名字，你可以自己改字体名字，第六七八分别是：渐入时间，字在屏幕上显示时间，渐出时间。三个加起来就是字的显示时间。
+
+
+StartX,StartY你懂得。。。
+

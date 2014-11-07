@@ -1,0 +1,50 @@
+1)修正了FireBrick
+        [StartX:1700]
+        [StartY:150]
+        FireBrick(0.0,0.0,80.0,100.0,1000,0,"breakablebrick.png",
+        "fire_brick.plist",
+        200,
+        32.0);
+        
+只需注意，第4个参数100.0表示的是这个火焰碰撞体积的高低度，而不是砖块的高度；
+倒数第二个参数表示火焰的喷射速度，一般保持这个参数是碰撞高度的1倍即可；
+最后一个参数是砖块显示的高度，设为32
+
+2）分数
+     [StartX:1090]
+     [StartY:260]
+     Score(0.0,0.0,64.0,64.0,10,"coin.png","score_effect.plist");
+     
+  前面4个参数和砖块的前四个参数一样，第5个参数设置为砖块的分数值，只能是整数。
+  
+  
+3）磁铁
+     [StartX:610]
+        [StartY:300]
+        ScoreMagnet = {
+          BasicInfo(0.0,0.0,64.0,64.0,"Icon-72.png");
+          MagnetEffect(200,800,10.0,500.0,"score_magnet_effect.plist",80.0,1.0,"score_magnet_fade_out.plist");
+        };
+  BasicInfo表示的是这个磁铁的显示样子，和BaseBrick的参数一样。
+  MagnetEffect参数用于设定磁铁的效果。
+  第一二个参数表示磁铁判定的长宽，比如200；800表示以player位置为中心的200和800的矩形内，磁铁生效。
+  第三个参数表示磁铁的时间长度；第四个参数表示磁铁改Score的速度大小，越大，Score向用户飞的越快。
+  后面的参数是美工用的。
+  
+4)JumpBrick
+        [StartX:600]
+        [StartY:230]
+        JumpBrick(0.0,0.0,300.0,32.0,1000,0,"breakablebrick.png",
+        500.0,600.0,0.5,
+        "jump_effect.plist");
+        
+  前面7个参数和普通砖块一样。第8个参数表示他的跳跃高度，Y轴方向；第9个参数表示他的dash速度，X轴方向。第10个参数表示效果
+  持续时间，0.5秒。剩下的美工。
+  
+
+
+
+  好运！
+  
+          
+

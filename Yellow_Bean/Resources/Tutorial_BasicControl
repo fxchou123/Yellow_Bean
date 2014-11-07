@@ -1,0 +1,50 @@
+
+Tutorial_BasicControl = {
+  [Z:1] 
+  Map = {
+    // Enable 10000 base brick for testing control
+    [StartX:0]
+    [StartY:0]
+    BaseBrick(0.0,0.0,10000.0,280.0,0,"brick.jpg");
+  };
+  
+  [Z:1]
+  Actor = {
+    [StartX:0]
+    [StartY:0]
+    Hint = {
+      Message("Welcome to Mr. Yellow Bean!");
+      Effect(500,500,"Red",20.0,"Chalkduster",1.0,1.0,1.0);
+    };
+    
+    
+    [StartX:1800]
+    [StartY:0]
+    Hint = {
+      Message("Please press the left hand side screen to jump!");
+      Effect(500,500,"Red",20.0,"Chalkduster",1.0,1.0,1.0);
+    };
+    
+    
+    [StartX:3600]
+    [StartY:0]
+    Hint = {
+      Message("Please press the right hand side screen to shrink!");
+      Effect(500,500,"Red",20.0,"Chalkduster",1.0,1.0,1.0);
+    };
+    
+    [StartX:5400]
+    [StartY:0]
+    Hint = {
+      Message("Please jump and then shrink while in the air to enable dumping!");
+      Effect(500,500,"Red",20.0,"Chalkduster",1.0,1.0,1.0);
+    };
+    
+    [StartX:7200]
+    [StartY:0]
+    Hint = {
+      Message("Good job!");
+      Effect(500,500,"Red",20.0,"Chalkduster",1.0,1.0,1.0);
+    };
+  };
+};

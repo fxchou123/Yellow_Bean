@@ -1,0 +1,39 @@
+(1) 修正了下蹲的bug,现在下蹲后，可以通过
+(2) JumpBrick踩上面有效，其他地方无效
+(3) 增加了PlayerShield:
+        [StartX:400]
+        [StartY:260]
+        PlayerShield(100.0,100.0,0,0,1.0,2.0,"invincible.png","player_shield.plist");
+第1，2个表示长宽，第3，4个参数表示速度，可以设为0，第5个表示这个shield的无敌时间，1.0 表示无敌时间持续1.0秒钟，第6个参数表示这个shield被踩了之后的持续时间是2秒，这个东西能抵挡一次伤害。
+(4) 增加了敌人：Spike
+        [StartX:400]
+        [StartY:260]
+        Spike(72.0,36.0,200,0.0,"missile.png","player_shield.plist");
+        
+第1，2个参数表示长宽，3，4个速度。这个敌人踩上面会杀死敌人，其他地方自己会死。
+
+(5) 增加了可以设置移动路点的敌人：Bee
+    [StartX:400]
+    [StartY:260]
+      Bee = {
+        WayPoint = {
+          MoveTo(100,200,2.0);
+          Delay(1.0);
+          MoveTo(300,500,3.0);
+      };
+      BeeInfo(72,72,"false","missile.png","bee_effect.plist");
+    };
+    
+    
+    WayPoint中表示Bee的移动方式：
+    MoveTo(100,200,2.0)表示他首先移动到(100,200),耗费2.0秒；
+    Delay(1.0);表示接着，它在原地停留1秒钟；
+    MoveTo(300,500,3.0);表示他接着移动到(300,500)，耗费3.0秒；
+    你可以使用这个WayPoint构造出各种路径的敌人。
+    
+    BeeInfo(72,72,"false","missile.png","bee_effect.plist");
+    第1,2参数表示长宽，第三个参数可选为"false","true"；"false"表示，这个物体踩头部可以杀死；
+    否则着敌人不能碰。后面美工的。
+    
+    Good Luck!
+    

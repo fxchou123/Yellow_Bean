@@ -1,0 +1,189 @@
+ New Version
+
+
+0)WayPoint
+WayPoint 是提供更复杂的运动轨迹的接口，它包括4种指令：
+
+MoveTo
+Move
+MoveWithPhysicalWorld
+Delay
+
+基本的WayPoint为：
+
+[StartX:300]
+[StartY:400]
+WayPoint = {
+  MoveTo(500,500);
+  Delay(20);
+  MoveWithPhysicalWorld(0.0,0.0);
+};
+
+StartX,StartY是绝对距离，但是他确定了该物体的在屏幕中的相对位置。
+WayPoint中的指令的参数全部为想对距离，不是绝对距离，切记切记。
+
+Delay(-1) 是合法的，表示永远停在原地。
+所以他应该是最后一个指令。
+Move(20.0,40.0) 表示，以（20.0，40.0）的绝对速度在屏幕上移动，这个指令不会停止，所以
+他也应该放在最后一个。由于他是绝对速度，所以他和背景的速度不统一，但是如果你想做导弹似得
+移动，这个指令很好用。
+MoveWithPhysicalWorld(30.0,30)表示，他会以和物理世界的相对速度移动，比如，你写：
+MoveWithPhysicalWorld（0，0）就表示他和背景移动速度一样，所以他看起来就不移动了。
+同样，这个指令没法结束，所以应该放在最后一个。
+
+如果你想和原来一样，就是这个道具就在屏幕上跟着背景移动，你就只用写：
+WayPoint = {
+  MoveWithPhysicalWorld(0.0,0.0);
+};
+
+
+
+
+1) Player的变化:
+
+[Z:10]
+  Player = {
+    [Mass:10000000.0]
+    [Elasticy:0.0]
+    PlayerInfo(280,315,50,70,0.3,1,450,50,20);
+    PlayerRun("player_run.png",8,8,75,75);
+    PlayerShrink("player_shrink_up.png",4,256,75,75,
+                 "player_shrink_down.png",4,256,75,75);
+    PlayerJump("player_jump.png",5,5,75,75);
+  };
+  
+其中PlayerInfo的参数意义是：
+前四个是X,Y,width,heigh;然后0.3表示CD,这个对于一段跳跃没有意义;第6个参数是指最多可以调多少次，不落地之前；前面的0.3表示的是N段跳
+之间的时间间隔，第7个是跳跃高度，第八九是蹲下来的尺寸。现在的跳跃是落地之后才能再跳，除非你设置N段跳跃。
+
+蹲下是你按着蹲，就一直蹲。
+
+2)障碍
+
+为了使得Player得跳跃正确，请把所有处在空中的作为障碍的BaseBrick换成AirObstacle，这个东西的参数和BaseBrick一样，但是使用它座位障碍物会保证Player的跳跃正确。请把所有在空中座位障碍物的BaseBrick换成AirObstacle，这样Player的跳跃才会正确。
+
+3) Gold
+Gold兼容原来的写法，并且提供了一种新的写法：
+   [StartX:900]
+        [StartY:320]
+        Gold = {
+          GoldInfo(0.0,0.0,20,20);
+          GoldType(1);
+          ResourceInfo("brownze_gold.png","silver_gold.png","gold_gold.png","star_gold.png");
+          HitEffect("gold_effect.plist");
+          LevelUpEffect("gold_level_up.plist");
+        };
+        
+注意，原来写法的Gold无法升级。
+GoldInfo参数的意思是：
+Gold沿着X轴的速度，Y轴的速度，长，宽。
+GoldType表示类型，1是铜，2是银，3是金，4是star
+注意这种Gold可以配合GoldLevelUp升级。请在以后的关卡中使用新的Gold写法，保留旧的只是为了向前兼容。
+
+
+4) GoldLevelUp
+[StartX:630]
+        [StartY:260]
+        GoldLevelUp = {
+          ItemInfo(20.0,20.0);
+          Sprite("gold_level_up.png");
+          Effect("gold_level_up.plist");
+          WayPoint = {
+            MoveWithPhysicalWorld(0.0,0.0);
+          };
+        };
+        
+GoldLevelUp 表示升级一个屏幕之类的所有Gold。
+ItemInfo参数表示长，宽
+WayPoint参数你懂得。
+
+
+5) HiddenWay
+[StartX:650]
+        [StartY:260]
+        HiddenWay = {
+          ItemInfo(60.0,60.0);
+          Sprite("hidden_path.png");
+          Effect("hidden_path_effect.plist");
+          WayPoint = {
+            MoveWithPhysicalWorld(0.0,0.0);
+          };
+          Path = {
+            [StartX:800]
+            [StartY:400]
+            BaseBrick(0.0,0.0,40.0,32.0,0,"brick.png");
+            
+            [StartX:900]
+            [StartY:400]
+            BaseBrick(0.0,0.0,40.0,32.0,0,"brick.png");
+            
+            [StartX:1000]
+            [StartY:400]
+            BaseBrick(0.0,0.0,40.0,32.0,0,"brick.png");
+            
+            [StartX:1100]
+            [StartY:400]
+            BaseBrick(0.0,0.0,40.0,32.0,0,"brick.png");
+            
+            [StartX:1200]
+            [StartY:400]
+            BaseBrick(0.0,0.0,40.0,32.0,0,"brick.png");
+            
+            [StartX:1300]
+            [StartY:400]
+            BaseBrick(0.0,0.0,40.0,32.0,0,"brick.png");
+            
+            };
+        };
+隐藏道路。
+ItemInfo表示长宽。
+WayPoint你懂得。
+Path里面就是隐藏的道路，当player碰了这个道具，hidden path就显示了。
+
+
+6) PlayerShield
+PlayerShield 写法换了:
+[StartX:600]
+        [StartY:260]
+        PlayerShield = {
+            ItemInfo(40.0,40.0);
+            Sprite("invincible.png");
+            Effect("player_shield.plist");
+            InvincibleDuration(2.0);
+            EffectDuration(20.0);
+            WayPoint = {
+              MoveWithPhysicalWorld(0.0,0.0);
+            };
+            MagnetEffect(250,250,4.2,500.0,"score_magnet_effect.plist",50.0,1.0,"score_magnet_fade_out.plist");        
+        };
+        
+为了支持WayPoint。
+参数你懂得，你只需要关注WayPoint就好了。
+InvincibleDuration参数表示无敌的持续时间
+EffectDuration参数表示这个shield的持续时间。
+
+7) ScoreMagnet 写法换了：
+ScoreMagnet = {
+  ItemInfo(width,height);
+  Sprite("magnet.png");
+  MagnetEffect(250,250,4.2,500.0,"score_magnet_effect.plist",50.0,1.0,"score_magnet_fade_out.plist");
+  WayPoint = {};
+};
+
+WayPoint 你懂得。
+
+PS:我帮你在game_test_2中把PlayerShield和ScoreMagnet的写法改正了。但是空中的BaseBrick我不知道在哪里，你得自己改改，或者也可以不改，反正那个bug也不容易看出。
+
+
+8) 分数是Score，写法和原来的Score一样。
+        
+        [StartX:550]
+        [StartY:380]
+        Score(0.0,0.0,45.0,45.0,1,"score.png","score_effect.plist");
+        
+还有很多没测试，有BUG，及时截图发给我，谢谢。
+
+
+
+
+
